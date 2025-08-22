@@ -1,0 +1,1 @@
+mcpserver-security-orchestrator: Intelligent entry point to MCP security workflows. Coordinates discovery, audit, building, and deployment across open ecosystem including third party tools and services. Teaches or executes based on user preference. Part of the Model Context Protocol Security initiative, a Cloud Security Alliance project.
