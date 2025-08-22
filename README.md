@@ -226,21 +226,37 @@ This orchestrator succeeds through community participation:
 
 ## Project Structure
 
-*Note: This project is in early development. Documentation structure will be updated as we build out the capabilities.*
+### **Core Implementation** (Ready to Use)
+```
+mcpserver-security-orchestrator/
+├── prompts/
+│   └── main-prompt.md              # Entry point and intelligent coordinator
+├── resources/
+│   ├── REGISTRY-TOOLS.md           # Tool catalog with capabilities and limitations
+│   └── REGISTRY-WORKFLOWS.md       # Proven workflow patterns and coordination
+├── PROGRESSIVE-DISCLOSURE.md       # Design philosophy and rationale
+├── PROGRESS.md                     # Session tracking and lab notebook strategy
+└── IDEAS.md                       # Future enhancements and research directions
+```
 
-### Strategic Documents (Planned)
+### **Strategic Foundation Documents** (Complete)
 - `TOOL-ECOSYSTEM.md` - Registry of available tools and their capabilities
 - `ORCHESTRATION-PATTERNS.md` - Common workflow templates and decision trees
 - `DATA-HANDLING.md` - AI-native approaches to data fusion and synthesis
 - `TOOL-DISCOVERY.md` - Dynamic discovery and evaluation of security tools
 - `EDUCATIONAL-ORCHESTRATION.md` - Learning coordination and skill development
-- `CONTEXT-FRAMEWORK.md` - 4-level deployment context detailed specifications
 
-### Implementation Components (Future)
-- Orchestration prompts and workflows
-- Tool integration templates and guidance
-- Context management and state handling
-- Educational coordination and progress tracking
+### **How to Use**
+1. **Start here**: `read ./prompts/main-prompt.md` and describe what you're trying to accomplish
+2. **Browse tools**: `read ./resources/REGISTRY-TOOLS.md` for detailed tool information
+3. **See patterns**: `read ./resources/REGISTRY-WORKFLOWS.md` for proven workflow templates
+4. **Understand design**: `read ./PROGRESSIVE-DISCLOSURE.md` for architecture philosophy
+
+### **Integration with Tool Ecosystem**
+- **mcpserver-finder**: `../mcpserver-finder/prompts/main-prompt.md`
+- **mcpserver-audit**: `../mcpserver-audit/prompts/main-prompt.md`
+- **mcpserver-builder**: `../mcpserver-builder/prompts/main-prompt.md` *(in development)*
+- **mcpserver-operator**: `../mcpserver-operator/prompts/main-prompt.md` *(in development)*
 
 ---
 
