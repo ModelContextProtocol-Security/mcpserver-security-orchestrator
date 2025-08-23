@@ -23,7 +23,9 @@ This registry documents effective workflows that combine multiple tools to accom
    └── Use mcpserver-finder to discover and evaluate candidates
    
 2. SECURITY ASSESSMENT  
-   └── Use mcpserver-audit on top candidates
+   ├── Option A: Quick automated scan with mighty-security
+   ├── Option B: Educational manual analysis with mcpserver-audit  
+   └── Option C: Both (mighty-security first, then mcpserver-audit for learning)
    
 3. DECISION POINT
    ├── Safe to use → Deploy with standard security
@@ -48,8 +50,16 @@ This registry documents effective workflows that combine multiple tools to accom
 # Phase 1: Discovery
 read ../../mcpserver-finder/prompts/main-prompt.md and find web search MCP servers for enterprise deployment
 
-# Phase 2: Assessment  
+# Phase 2: Assessment (choose approach based on context and learning goals)
+# Option A: Quick automated scan
+python3 mighty_mcp.py check https://github.com/[chosen-server]
+
+# Option B: Educational manual analysis
 read ../../mcpserver-audit/prompts/main-prompt.md and assess security of [chosen server]
+
+# Option C: Combined approach
+python3 mighty_mcp.py check https://github.com/[chosen-server] --llm
+# Then: read ../../mcpserver-audit/prompts/main-prompt.md and analyze mighty-security findings for [chosen server]
 
 # Phase 3: Decision
 [Based on findings, route to builder for fixes OR operator for hardening]
@@ -63,7 +73,9 @@ read ../../mcpserver-audit/prompts/main-prompt.md and assess security of [chosen
 #### Workflow Steps
 ```
 1. SECURITY ASSESSMENT
-   └── Use mcpserver-audit to identify vulnerabilities
+   ├── Quick scan: mighty-security for automated vulnerability detection
+   ├── Deep analysis: mcpserver-audit for educational security assessment
+   └── Recommended: mighty-security first, then mcpserver-audit for learning/validation
    
 2. REMEDIATION PLANNING
    ├── Critical/High issues → mcpserver-builder for fixes
@@ -82,7 +94,11 @@ read ../../mcpserver-audit/prompts/main-prompt.md and assess security of [chosen
 
 #### Example Usage
 ```
-# Phase 1: Assessment
+# Phase 1: Assessment (recommended: start with automated scan)
+# Quick automated vulnerability detection
+python3 mighty_mcp.py check https://github.com/my-org/my-custom-server --llm
+
+# Educational manual analysis (can analyze mighty-security findings)
 read ../../mcpserver-audit/prompts/main-prompt.md and audit security of my-custom-server
 
 # Phase 2: Remediation (based on findings)
@@ -131,9 +147,67 @@ read ../../mcpserver-operator/prompts/main-prompt.md and plan secure deployment
 
 ---
 
+### **Pattern 4: Automated Pre-screening → Educational Deep-Dive** 
+**Scenario**: "I want to efficiently screen servers and learn from interesting findings"
+
+#### Workflow Steps
+```
+1. AUTOMATED BATCH SCREENING
+   └── Use mighty-security to quickly scan multiple server candidates
+   
+2. TRIAGE AND PRIORITIZATION
+   ├── Review automated findings for severity and interest level
+   ├── Filter false positives based on context
+   └── Select servers with educational value or concerning findings
+   
+3. EDUCATIONAL DEEP-DIVE
+   └── Use mcpserver-audit to manually analyze selected findings
+   
+4. PATTERN LEARNING
+   ├── Compare automated vs manual findings
+   ├── Build understanding of vulnerability patterns
+   └── Improve ability to assess automated scanner results
+```
+
+#### Research/Beta Benefits
+- **Efficiency**: Screen many servers quickly with automation
+- **Learning**: Focus educational time on most interesting cases  
+- **Validation**: Compare automated vs manual assessment results
+- **Pattern Recognition**: Learn to identify reliable vs unreliable automated findings
+
+#### Example Usage
+```bash
+# Phase 1: Batch Screening
+for server in candidate-list; do
+    python3 mighty_mcp.py check $server --llm > results-$server.txt
+done
+
+# Phase 2: Triage (review automated results)
+# Select servers with:
+# - High-severity findings that need validation
+# - Interesting patterns worth learning from  
+# - Unexpected results (false positives/negatives)
+
+# Phase 3: Educational Analysis
+read ../../mcpserver-audit/prompts/main-prompt.md and analyze these mighty-security findings for [selected-server]: [paste results]
+
+# Phase 4: Learning Capture
+# Document: What did mighty-security get right/wrong?
+# How accurate were the severity assessments?
+# What patterns can improve future automated screening?
+```
+
+#### Research Questions for This Pattern
+- How reliable are mighty-security's severity assessments?
+- What types of vulnerabilities does it miss vs over-report?
+- Can we develop hybrid approaches that combine both tools effectively?
+- What validation patterns help identify false positives quickly?
+
+---
+
 ## Educational Workflow Patterns
 
-### **Pattern 4: Learning-Focused Discovery**
+### **Pattern 5: Learning-Focused Discovery**
 **Scenario**: "I want to learn about MCP security while finding/evaluating servers"
 
 #### Educational Integration
@@ -165,10 +239,11 @@ read ../../mcpserver-audit/prompts/main-prompt.md and teach me security assessme
 #### Coordination Strategy
 ```
 PARALLEL TOOL USAGE:
-├── mcpserver-audit (primary assessment + education)
-├── Third-party static analysis (additional coverage)
-├── Dependency scanners (supply chain security)
-└── Specialized tools (based on server technology)
+├── mighty-security (automated MCP-specific vulnerability detection)
+├── mcpserver-audit (educational manual assessment + validation)
+├── Third-party static analysis (Semgrep, CodeQL for additional coverage)
+├── Dependency scanners (npm audit, Snyk for supply chain security)
+└── Specialized tools (based on server technology stack)
 
 SYNTHESIS:
 ├── Correlate findings across tools

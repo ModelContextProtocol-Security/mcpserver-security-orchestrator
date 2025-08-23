@@ -163,16 +163,78 @@ read ../../mcpserver-operator/prompts/main-prompt.md and plan secure deployment 
 
 ---
 
-### **Security Assessment Tools** (To Be Discovered)  
-**Purpose**: Alternative or complementary security analysis capabilities
+### **Security Assessment Tools**
+
+#### **mighty-security** (Third-Party MCP Scanner)
+**Purpose**: Automated MCP server vulnerability scanning and detection
+
+**Location**: 
+- **Repo**: `https://github.com/NineSunsInc/mighty-security`
+- **Tool**: `python3 mighty_mcp.py check <server-url>`
+- **Setup**: Requires Python 3.13+, optional Cerebras API key for LLM analysis
+
+**Maturity**: 🚀 **Production** - Actively maintained, claims 500+ servers scanned in wild
+
+**Good At**:
+- Automated vulnerability detection (command injection, SSRF, credential theft, path traversal)
+- Multi-language analysis (Python/JS/TS/Go/Rust) 
+- ML/LLM-enhanced pattern recognition with Cerebras integration
+- Production-ready CI/CD integration (returns exit codes)
+- Web dashboard for results visualization and monitoring
+- Real-world vulnerability patterns from actual MCP server analysis
+
+**Not Good At**:
+- Educational explanation of vulnerabilities (use mcpserver-audit for learning)
+- Perfect accuracy (75-85% detection rate, ~5% false positives acknowledged)
+- Obfuscated or heavily transformed code detection
+- Runtime protection (basic monitoring only)
+
+**Known Limitations**:
+- Third-party tool - we haven't independently validated their vulnerability claims
+- Newer tool - long-term maintenance and community support unknown
+- May have different security philosophy than our educational approach
+
+**Research/Beta Integration**:
+- **Quick Pre-screening**: Run mighty-security before manual educational analysis
+- **Bulk Assessment**: Scan multiple discovered servers efficiently  
+- **Validation**: Compare automated findings with our manual assessment results
+- **Learning**: Study their detection patterns to improve our own checks
+
+**Works Well With**:
+- **mcpserver-finder**: Pre-screen discovered servers for obvious vulnerabilities
+- **mcpserver-audit**: Use automated findings as input for educational security analysis
+- **mcpserver-builder**: Feed automated vulnerability findings into remediation planning
+
+**Typical Usage** (Research):
+```bash
+# Basic automated scan
+python3 mighty_mcp.py check https://github.com/some/mcp-server
+
+# Enhanced with LLM analysis  
+python3 mighty_mcp.py check https://github.com/some/mcp-server --llm
+
+# Integration with our educational tools
+mighty-security scan → mcpserver-audit manual analysis → mcpserver-builder fixes
+```
+
+**Research Questions**:
+- How do their automated findings compare with our manual educational assessments?
+- Can we learn from their vulnerability patterns to improve our own detection?
+- What's the false positive rate on servers we know are safe?
+- How does their approach complement our educational methodology?
+
+---
+
+#### **Other Security Assessment Tools**
+**Purpose**: Additional security analysis capabilities for comprehensive coverage
 
 **Known Categories**:
 - **Static Analysis**: Semgrep, CodeQL, Bandit, ESLint security plugins
 - **Dependency Scanning**: npm audit, Snyk, OWASP Dependency Check
 - **Container Security**: Trivy, Anchore, Clair
-- **Specialized Scanners**: MCP-specific security tools (to be discovered)
+- **Specialized Scanners**: Other MCP-specific security tools (to be discovered)
 
-**Integration Approach**: Run in parallel with mcpserver-audit for comprehensive coverage
+**Integration Approach**: Run in parallel with mcpserver-audit and mighty-security for comprehensive coverage
 
 ---
 

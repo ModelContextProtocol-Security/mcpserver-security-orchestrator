@@ -86,9 +86,17 @@ read ../../mcpserver-finder/prompts/main-prompt.md and [your discovery request]
 ```
 
 #### **Security Assessment**  
+**Educational Manual Analysis:**
 ```
 read ../../mcpserver-audit/prompts/main-prompt.md and [your security assessment request]
 ```
+
+**Quick Automated Scanning:** *(Third-party tool - research/beta)*
+```
+python3 mighty_mcp.py check https://github.com/[server-repo] --llm
+```
+
+**Combined Approach:** Run automated scan first, then analyze findings educationally
 
 #### **Security Remediation** *(in development)*
 ```
@@ -109,22 +117,22 @@ I use a **4-Level Deployment Context** to tailor security recommendations:
 ### **Level 1: Local Use**
 - **Risk**: Low - mainly personal use
 - **Focus**: Functionality and basic good practices
-- **Tools**: Light discovery and assessment
+- **Tools**: Light discovery, optional quick scan (mighty-security for obvious issues)
 
 ### **Level 2: Remote Single-User**  
 - **Risk**: Medium - network exposure
 - **Focus**: Input validation, credential security
-- **Tools**: Standard assessment and basic hardening
+- **Tools**: Standard assessment (mighty-security + educational analysis), basic hardening
 
 ### **Level 3: Remote Multi-User**
 - **Risk**: High - multiple users and data
 - **Focus**: Comprehensive security, access controls
-- **Tools**: Full audit, likely remediation needed
+- **Tools**: Full audit (automated + manual), likely remediation needed
 
 ### **Level 4: Enterprise Multi-User**
 - **Risk**: Critical - business and compliance
 - **Focus**: Complete security hardening and governance
-- **Tools**: Multi-tool assessment, comprehensive remediation
+- **Tools**: Multi-tool assessment (mighty-security + mcpserver-audit + others), comprehensive remediation
 
 **I'll help you identify your deployment context and adapt recommendations accordingly.**
 
