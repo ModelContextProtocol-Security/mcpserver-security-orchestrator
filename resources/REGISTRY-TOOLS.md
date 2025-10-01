@@ -163,6 +163,52 @@ read ../../mcpserver-operator/prompts/main-prompt.md and plan secure deployment 
 
 ---
 
+#### **MCP Eval** (Hosted Compatibility & Capability Testing)
+**Purpose**: Evaluate MCP servers for client compatibility, tool coverage, and basic performance
+
+**Location**:
+- **Hosted App**: https://www.mcpevals.ai/
+- **Repo**: https://github.com/scorecard-ai/mcp-eval
+
+**Maturity**: 🚀 **Production** - Hosted service with self-host option
+
+**Good At**:
+- Client compatibility matrix (ChatGPT, Claude, Cursor)
+- OAuth 2.0 flow validation and testing
+- Tool discovery with intelligent argument generation
+- Performance metrics with real-time streaming logs
+- One-click testing and easy report sharing
+
+**Not Good At**:
+- Security vulnerability scanning or code-level analysis (use mcpserver-audit and scanners)
+- Deep protocol fuzzing or adversarial testing
+- Offline/batch CLI workflows (use self-host/API if needed)
+
+**Known Limitations**:
+- Requires accessible server URL or proper OAuth configuration
+- Generated test arguments may need manual adjustment for highly custom schemas
+- Focused on compatibility and behavior, not security posture
+
+**Works Well With**:
+- **mcpserver-finder**: Screen discovered candidates for compatibility and readiness
+- **mcpserver-audit**: Use as a preflight/regression check before/after security audits
+- **mighty-security / other scanners**: Complement with vulnerability scanning for risk assessment
+
+**Typical Usage** (Hosted):
+```
+1) Visit https://www.mcpevals.ai/
+2) Paste the MCP server URL (OAuth-supported)
+3) Run evaluation and export/share the report
+```
+
+**Outputs Captured**:
+- Pass/fail per client (ChatGPT, Claude, Cursor)
+- Tool-level success/error rates and logs
+- Response time metrics (e.g., p50/p95) per tool
+- OAuth/authorization flow results and errors
+
+---
+
 ### **Security Assessment Tools**
 
 #### **mighty-security** (Third-Party MCP Scanner)
